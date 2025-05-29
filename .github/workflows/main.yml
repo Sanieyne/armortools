@@ -18,8 +18,15 @@ jobs:
         submodules: recursive
         fetch-depth: 0
 
-    - name: Ensure submodules are initialized
+    - name: Ensure all submodules (including Kha) are fetched
       run: git submodule update --init --recursive
+
+    - name: Manually clone Kha if missing
+      run: |
+        if not exist armorcore\Kha (
+          git clone --recursive https://github.com/Kode/Kha armorcore\Kha
+        )
+      shell: cmd
 
     - name: Set up Python
       uses: actions/setup-python@v5
@@ -46,7 +53,7 @@ jobs:
       shell: cmd
 
     - name: Show output folder structure
-      run: dir /s /b build\
+      run: dir /s /b armorcore\build\
       shell: cmd
 
     - name: Upload built binary (ArmorPaint)
