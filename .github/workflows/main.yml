@@ -38,7 +38,7 @@ jobs:
     - name: Build ArmorPaint (example)
       run: |
         cd armorcore
-        make.bat armorpaint
+        call make.bat armorpaint
 
     - name: Upload built binaries
       uses: actions/upload-artifact@v4
