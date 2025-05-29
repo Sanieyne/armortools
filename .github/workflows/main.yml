@@ -35,11 +35,18 @@ jobs:
     - name: Setup MSVC environment
       uses: ilammy/msvc-dev-cmd@v1
 
-    - name: Build ArmorPaint (example)
-      run: cmd /c "cd armorcore && make.bat armorpaint"
+    - name: Build ArmorPaint
+      run: |
+        cd armorcore
+        node Kha/make armorpaint -g direct3d11 --compile
+      shell: cmd
 
-    - name: Upload built binaries
+    - name: Show output folder structure
+      run: dir /s /b build\
+
+    - name: Upload built binary (ArmorPaint)
       uses: actions/upload-artifact@v4
       with:
         name: armorpaint-windows
-        path: build/bin/
+        path: |
+          build/windows-build/Release/*.exe
