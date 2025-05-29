@@ -36,9 +36,7 @@ jobs:
       uses: ilammy/msvc-dev-cmd@v1
 
     - name: Build ArmorPaint (example)
-      run: |
-        cd armorcore
-        call make.bat armorpaint
+      run: cmd /c "cd armorcore && make.bat armorpaint"
 
     - name: Upload built binaries
       uses: actions/upload-artifact@v4
