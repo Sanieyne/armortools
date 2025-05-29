@@ -28,6 +28,21 @@ jobs:
         )
       shell: cmd
 
+    - name: List armorcore directory contents
+      run: dir armorcore /s /b
+      shell: cmd
+
+    - name: Find and display khafile.js
+      run: |
+        dir armorcore /s /b | findstr khafile.js
+        if exist armorcore\armorpaint\khafile.js (
+          type armorcore\armorpaint\khafile.js
+        ) else (
+          echo No khafile.js found in armorcore/armorpaint
+          dir armorcore /s /b | findstr khafile.js
+        )
+      shell: cmd
+
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
@@ -48,8 +63,8 @@ jobs:
 
     - name: Build ArmorPaint
       run: |
-        cd armorcore
-        node Kha/make armorpaint -g direct3d11 --compile
+        cd armorcore/armorpaint
+        node ../Kha/make -g direct3d11 --compile --verbose
       shell: cmd
 
     - name: Show output folder structure
